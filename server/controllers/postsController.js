@@ -4,9 +4,42 @@ import mongoose from "mongoose";
 //Logica de las rutas
 export const getPosts = async (req, res) => {
   try {
+    const { page } = req.query;
+    const LIMIT = 8;
+    const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page
+    const total = await PostMessage.countDocuments({});
     //Funcion asyncrona para buscar los posts
-    const postMessages = await PostMessage.find();
-    res.status(200).json(postMessages);
+    const posts = await PostMessage.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+    res.status(200).json({
+      data: posts,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+//La query se usa cuando se busca un resultado
+//QUERY -> /posts?page=1 -> page = 1
+//Y el params cuando se quiere obtener un resultado especifico
+//PARAMS -> /posts/:id -> id = 123
+
+export const getPostsBySearch = async (req, res) => {
+  try {
+    //Se obtiene los datos de la query y tags
+    const { searchQuery, tags } = req.query;
+    //Regular expresion para evitar errores por ejemplo test, Test, TEST
+    const title = new RegExp(searchQuery, "i");
+    //Se busca en la base de datos algun parametro que coincida con title o tags, y dentro de tags se cre un array con split
+    const posts = await PostMessage.find({
+      $or: [{ title }, { tags: { $in: tags.split(",") } }],
+    });
+    //Devuelve el resultado
+    res.json({ data: posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

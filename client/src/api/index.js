@@ -18,7 +18,13 @@ API.interceptors.request.use((req) => {
 });
 
 //Funcion para obtener los posts
-export const fetchPosts = () => API.get("/posts");
+export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
+export const fetchPostsBySearch = (searchQuery) =>
+  API.get(
+    `/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${
+      searchQuery.tags
+    }`
+  );
 //Funcion para crear un nuevo post
 export const createPost = (newPost) => API.post("/posts", newPost);
 //Funcion para actualizar un post el cual corresponda su id
