@@ -23,14 +23,14 @@ export default makeStyles({
   },
   overlay: {
     position: "absolute",
-    top: "20px",
+    top: "30px",
     left: "20px",
     color: "white",
   },
   overlay2: {
     position: "absolute",
-    top: "20px",
-    right: "20px",
+    top: "30px",
+    right: "1px",
     color: "white",
   },
   grid: {
@@ -39,7 +39,7 @@ export default makeStyles({
   details: {
     display: "flex",
     justifyContent: "space-between",
-    margin: "20px",
+    margin: "5px",
   },
   title: {
     padding: "0 16px",
@@ -48,5 +48,10 @@ export default makeStyles({
     padding: "0 16px 8px 16px",
     display: "flex",
     justifyContent: "space-between",
+  },
+  plus: {
+    backgroundColor: "#2b2a33",
+    color: "white",
+    fontFamily: "Segoe UI",
   },
 });

@@ -4,10 +4,13 @@ import { useSelector } from "react-redux";
 import { Grid, CircularProgress } from "@material-ui/core";
 
 const Posts = ({ setCurrentId }) => {
-  const { posts } = useSelector((state) => state.posts); // [] -> { isLoading, posts: []}
+  //con el useSelector se obtiene los state del reducer
+  const { posts, isLoading } = useSelector((state) => state.posts); // [] -> { isLoading, posts: []}
   const classes = useStyles();
 
-  return !posts?.length ? (
+  if (!posts.length && !isLoading) return "No Posts";
+
+  return isLoading ? (
     <CircularProgress />
   ) : (
     <Grid

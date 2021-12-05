@@ -23,6 +23,17 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await PostMessage.findById(id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 //La query se usa cuando se busca un resultado
 //QUERY -> /posts?page=1 -> page = 1
 //Y el params cuando se quiere obtener un resultado especifico
@@ -49,6 +60,7 @@ export const createPosts = async (req, res) => {
   const post = req.body;
   const newPost = new PostMessage({
     ...post,
+    _id: mongoose.Types.ObjectId(),
     creator: req.userId,
     createdAt: new Date().toISOString(),
   });

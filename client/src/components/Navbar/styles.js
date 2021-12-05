@@ -4,7 +4,7 @@ import { deepPurple } from "@material-ui/core/colors";
 export default makeStyles((theme) => ({
   appBar: {
     borderRadius: 15,
-    margin: "30px 0",
+    margin: "0 0 25px 0",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",

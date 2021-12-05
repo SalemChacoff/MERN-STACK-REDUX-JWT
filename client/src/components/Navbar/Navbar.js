@@ -38,7 +38,7 @@ const Navbar = () => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location, user?.token]);
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <AppBar className={classes.appBar} position="sticky" color="inherit">
       <div className={classes.brandContainer}>
         <Typography
           as={Link}
@@ -47,7 +47,7 @@ const Navbar = () => {
           variant="h2"
           align="center"
         >
-          Memories
+          Imagenes
         </Typography>
         <img
           className={classes.image}
